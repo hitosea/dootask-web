@@ -1,0 +1,162 @@
+{
+    "name": "DooTask",
+    "version": "1.0.0",
+    "description": "DooTask is task management system.",
+    "main": "electron.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "electron-forge start",
+        "start-quiet": "sleep 3 && electron-forge start &> /dev/null",
+        "build": "electron-builder",
+        "build-mac": "electron-builder --mac",
+        "build-win": "electron-builder --win",
+        "build-mac-publish": "electron-builder --publish always --mac",
+        "build-win-publish": "electron-builder --publish always --win",
+        "package": "electron-forge package",
+        "make": "electron-forge make",
+        "publish": "electron-forge publish"
+    },
+    "author": {
+        "name": "KuaiFan",
+        "email": "aipaw@live.cn",
+        "url": "https://github.com/kuaifan"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kuaifan/dootask.git"
+    },
+    "devDependencies": {
+        "@electron-forge/cli": "^7.6.0",
+        "@electron-forge/maker-deb": "^7.6.0",
+        "@electron-forge/maker-rpm": "^7.6.0",
+        "@electron-forge/maker-squirrel": "^7.6.0",
+        "@electron-forge/maker-zip": "^7.6.0",
+        "dotenv": "^16.4.5",
+        "electron": "^33.2.1",
+        "electron-builder": "^25.1.8",
+        "electron-notarize": "^1.2.2",
+        "form-data": "^4.0.1",
+        "inquirer": "^8.2.0",
+        "ora": "^4.1.1"
+    },
+    "dependencies": {
+        "axios": "^1.7.7",
+        "crc": "^3.8.0",
+        "dayjs": "^1.11.13",
+        "electron-config": "^2.0.0",
+        "electron-log": "^5.2.2",
+        "electron-screenshots-tool": "^1.1.2",
+        "electron-squirrel-startup": "^1.0.1",
+        "electron-store": "^8.2.0",
+        "electron-updater": "^6.3.9",
+        "fs-extra": "^11.2.0",
+        "pdf-lib": "^1.17.1",
+        "request": "^2.88.2",
+        "yauzl": "^3.2.0"
+    },
+    "trayIcon": {
+        "dev": {
+            "mac": "../resources/assets/statics/public/images/tray/logo-trayTemplate.png",
+            "win": "../resources/assets/statics/public/images/logo-app.ico"
+        },
+        "prod": {
+            "mac": "./public/images/tray/logo-trayTemplate.png",
+            "win": "./public/images/logo-app.ico"
+        }
+    },
+    "build": {
+        "appId": "com.dootask.task",
+        "artifactName": "${productName}-v${version}-${os}-${arch}.${ext}",
+        "asar": true,
+        "directories": {
+            "output": "dist"
+        },
+        "files": [
+            "render/**/*",
+            "public/**/*",
+            "electron-menu.js",
+            "electron-preload.js",
+            "electron.js",
+            "utils.js"
+        ],
+        "extraFiles": [
+            {
+                "from": "updater/${os}/${arch}",
+                "to": "Resources/updater",
+                "filter": ["**/*"]
+            }
+        ],
+        "npmRebuild": false,
+        "publish": {
+            "provider": "generic"
+        },
+        "releaseInfo": {},
+        "mac": {
+            "icon": "../resources/assets/statics/public/images/logo-app.png",
+            "entitlements": "entitlements.plist",
+            "entitlementsInherit": "entitlements.plist",
+            "category": "public.app-category.productivity",
+            "target": [
+                {
+                    "target": "zip",
+                    "arch": [
+                        "x64",
+                        "arm64"
+                    ]
+                },
+                {
+                    "target": "dmg",
+                    "arch": [
+                        "x64",
+                        "arm64"
+                    ]
+                }
+            ]
+        },
+        "win": {
+            "icon": "../resources/assets/statics/public/images/logo-app.ico",
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64",
+                        "arm64"
+                    ]
+                }
+            ],
+            "verifyUpdateCodeSignature": false
+        },
+        "nsis": {
+            "oneClick": false,
+            "artifactName": "${productName}-v${version}-${os}-${arch}.${ext}",
+            "allowToChangeInstallationDirectory": true
+        }
+    },
+    "config": {
+        "forge": {
+            "packagerConfig": {},
+            "makers": [
+                {
+                    "name": "@electron-forge/maker-squirrel",
+                    "config": {
+                        "name": "DooTask"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-zip",
+                    "platforms": [
+                        "darwin"
+                    ]
+                },
+                {
+                    "name": "@electron-forge/maker-deb",
+                    "config": {}
+                },
+                {
+                    "name": "@electron-forge/maker-rpm",
+                    "config": {}
+                }
+            ]
+        }
+    }
+}
