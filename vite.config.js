@@ -9,7 +9,7 @@ import autoprefixer from 'autoprefixer';
 import chokidar from 'chokidar';
 
 const argv = process.argv;
-const basePath = argv.includes('electronBuild') ? './' : '/';
+const basePath = './';
 const publicPath = argv.includes('electronBuild') ? 'electron/public' : 'public';
 const staticDir = {src: path.resolve(__dirname, 'resources/assets/statics/public'), dest: path.resolve(__dirname, publicPath)}
 
@@ -82,13 +82,13 @@ export default defineConfig(({command, mode}) => {
                     // 替换匹配的 CSS 链接
                     html = html.replace(
                         /<link.*?href="[^"]*app[^"]*\.css".*?>/g,
-                        `<link rel="stylesheet" href="/${cssFile}">`
+                        `<link rel="stylesheet" href="./${cssFile}">`
                     )
                     
                     // 替换脚本标签
                     html = html.replace(
                         /<script type="module" src="(.+?)"><\/script>/,
-                        `<script type="module" src="/${manifest['resources/assets/js/app.js'].file}"></script>`
+                        `<script type="module" src="./${manifest['resources/assets/js/app.js'].file}"></script>`
                     )
                     
                     // 写入新的 HTML 文件

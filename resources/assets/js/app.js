@@ -213,7 +213,7 @@ window.systemInfo = {
     title: import.meta.env.VITE_APP_NAME,
     debug: import.meta.env.VITE_APP_DEBUG ? 'yes' : 'no',
     version: import.meta.env.VITE_APP_VERSION,
-    origin: window.location.origin + "/",
+    origin: window.location.origin + import.meta.env.VITE_APP_BASE_PATH + '/',
     homeUrl: null,
     apiUrl: import.meta.env.VITE_APP_URL
 };

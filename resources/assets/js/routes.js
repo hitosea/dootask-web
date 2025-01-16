@@ -1,22 +1,24 @@
+const basePath = import.meta.env.VITE_APP_BASE_PATH;
+
 export default [
     {
         name: 'index',
-        path: '/',
+        path: `${basePath}/`,
         component: () => import('./pages/index.vue')
     },
     {
         name: 'pro',
-        path: '/pro',
+        path: `${basePath}/pro`,
         component: () => import('./pages/pro.vue'),
     },
     {
         name: 'meeting',
-        path: '/meeting/:meetingId?/:sharekey?',
+        path: `${basePath}/meeting/:meetingId?/:sharekey?`,
         component: () => import('./pages/meeting.vue'),
     },
     {
         name: 'manage',
-        path: '/manage',
+        path: `${basePath}/manage`,
         component: () => import('./pages/manage.vue'),
         children: [
             {
@@ -130,62 +132,62 @@ export default [
     },
     {
         name: 'single-file-msg',
-        path: '/single/file/msg/:msgId',
+        path: `${basePath}/single/file/msg/:msgId`,
         component: () => import('./pages/single/fileMsg.vue'),
     },
     {
         name: 'single-file-task',
-        path: '/single/file/task/:fileId',
+        path: `${basePath}/single/file/task/:fileId`,
         component: () => import('./pages/single/fileTask.vue'),
     },
     {
         name: 'single-file',
-        path: '/single/file/:codeOrFileId',
+        path: `${basePath}/single/file/:codeOrFileId`,
         component: () => import('./pages/single/file.vue'),
     },
     {
         name: 'single-task-content',
-        path: '/single/task/content/:taskId',
+        path: `${basePath}/single/task/content/:taskId`,
         component: () => import('./pages/single/taskContent.vue'),
     },
     {
         name: 'single-task',
-        path: '/single/task/:taskId',
+        path: `${basePath}/single/task/:taskId`,
         component: () => import('./pages/single/task.vue'),
     },
     {
         name: 'single-apps',
-        path: '/single/apps/*',
+        path: `${basePath}/single/apps/*`,
         component: () => import('./pages/single/apps.vue')
     },
     {
         name: 'single-valid-email',
-        path: '/single/valid/email',
+        path: `${basePath}/single/valid/email`,
         component: () => import('./pages/single/validEmail.vue')
     },
     {
         name: 'single-report-edit',
-        path: '/single/report/edit/:reportEditId',
+        path: `${basePath}/single/report/edit/:reportEditId`,
         component: () => import('./pages/single/reportEdit.vue')
     },
     {
         name: 'single-report-detail',
-        path: '/single/report/detail/:reportDetailId',
+        path: `${basePath}/single/report/detail/:reportDetailId`,
         component: () => import('./pages/single/reportDetail.vue')
     },
     {
         name: 'token',
-        path: '/token',
+        path: `${basePath}/token`,
         component: () => import('./pages/token.vue'),
     },
     {
         name: 'login',
-        path: '/login',
+        path: `${basePath}/login`,
         component: () => import('./pages/login.vue'),
     },
     {
         name: 'preload',
-        path: '/preload',
+        path: `${basePath}/preload`,
         component: () => import('./pages/preload.vue')
     },
     {
