@@ -9,7 +9,6 @@ import autoprefixer from 'autoprefixer';
 import chokidar from 'chokidar';
 
 const argv = process.argv;
-const basePath = './';
 const publicPath = argv.includes('electronBuild') ? 'electron/public' : 'public';
 const staticDir = {src: path.resolve(__dirname, 'resources/assets/statics/public'), dest: path.resolve(__dirname, publicPath)}
 
@@ -22,6 +21,10 @@ export default defineConfig(({command, mode}) => {
     const env = loadEnv(mode, process.cwd(), '')
     const host = "0.0.0.0"
     const port = parseInt(env['VITE_DEV_PORT'])
+    let basePath = argv.includes('electronBuild') ? './' : env['VITE_APP_DEBUG'] === 'true' ? '/' : env['VITE_APP_BASE_PATH'];
+    if (basePath === '') {
+        basePath = '/'
+    }
 
     const plugins = [
         createVuePlugin({
@@ -63,41 +66,6 @@ export default defineConfig(({command, mode}) => {
         })
     }
 
-    if (command === 'build') {
-        plugins.push({
-            name: 'build-html',
-            closeBundle() {
-                if (command === 'build') {
-                    // 读取 manifest.json
-                    const manifest = JSON.parse(
-                        fs.readFileSync('public/manifest.json', 'utf-8')
-                    )
-                    
-                    // 读取 HTML 模板
-                    let html = fs.readFileSync('public/index.html', 'utf-8')
-
-                    // 找到所有以 app 开头的 CSS 文件
-                    const cssFile = manifest['resources/assets/js/app.js'].css[0]
-                    
-                    // 替换匹配的 CSS 链接
-                    html = html.replace(
-                        /<link.*?href="[^"]*app[^"]*\.css".*?>/g,
-                        `<link rel="stylesheet" href="./${cssFile}">`
-                    )
-                    
-                    // 替换脚本标签
-                    html = html.replace(
-                        /<script type="module" src="(.+?)"><\/script>/,
-                        `<script type="module" src="./${manifest['resources/assets/js/app.js'].file}"></script>`
-                    )
-                    
-                    // 写入新的 HTML 文件
-                    fs.writeFileSync('public/index.html', html)
-                }
-            }
-        })
-    }
-
     return {
         base: basePath,
         publicDir: publicPath,
@@ -129,7 +97,6 @@ export default defineConfig(({command, mode}) => {
             assetsDir: "js/build",
             emptyOutDir: false,
             rollupOptions: {
-                input: 'resources/assets/js/app.js',
                 output: {
                     manualChunks(id) {
                         if (id.includes('node_modules')) {

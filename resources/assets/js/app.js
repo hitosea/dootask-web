@@ -209,11 +209,15 @@ $A.execMainDispatch = (action, data) => {
         });
     }
 };
+
+// 系统信息
+const debug = import.meta.env.VITE_APP_DEBUG === 'true';
+const basePath = debug ? '' : import.meta.env.VITE_APP_BASE_PATH;
 window.systemInfo = {
     title: import.meta.env.VITE_APP_NAME,
-    debug: import.meta.env.VITE_APP_DEBUG ? 'yes' : 'no',
+    debug: debug ? 'yes' : 'no',
     version: import.meta.env.VITE_APP_VERSION,
-    origin: window.location.origin + import.meta.env.VITE_APP_BASE_PATH + '/',
+    origin: window.location.origin + basePath + '/',
     homeUrl: null,
     apiUrl: import.meta.env.VITE_APP_URL
 };
@@ -221,6 +225,10 @@ window.execMainCacheData = {}
 $A.execMainCacheJudge = (key) => {
     const val = window.execMainCacheData[key] || false
     window.execMainCacheData[key] = true
+
+
+
+    
     return val
 };
 

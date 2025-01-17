@@ -32,7 +32,12 @@ cp .env.example .env
 # 4、Install dependencies
 npm install
 
-# 5、Production compilation
+# 5、Configure environment variables
+VITE_APP_DEBUG=false # Close debug
+VITE_APP_BASE_PATH="" # Base path, if there is no base path, please set it to empty, for example: /public
+VITE_APP_URL="" # Api address
+
+# 6、Production compilation
 ./cmd prod # or npm run build
 ```
 
@@ -82,6 +87,10 @@ server {
 - `NodeJs 20+` must be installed
 
 ```bash
-# Development
+# 1、Configure environment variables
+VITE_APP_DEBUG=true # Open debug
+VITE_APP_URL="" # Api address
+
+# 2、Compile project
 ./cmd dev # or npm run start
 ```

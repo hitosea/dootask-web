@@ -32,7 +32,12 @@ cp .env.example .env
 # 4、安装依赖
 npm install
 
-# 5、编译项目（这是网页端的，App/Pc/Mac客户端请查看 README_PUBLISH.md）
+# 5、配置环境变量
+VITE_APP_DEBUG=false # 关闭调试
+VITE_APP_BASE_PATH="" # 基础路径，如果没有基础路径，请设置为空，例如：/public
+VITE_APP_URL="" # 接口地址
+
+# 6、编译项目（这是网页端的，App/Pc/Mac客户端请查看 README_PUBLISH.md）
 ./cmd prod # 或 npm run build
 ```
 
@@ -82,6 +87,10 @@ server {
 - 请确保你已经安装了 `NodeJs 20+`
 
 ```bash
-# 开发模式
+# 1、配置环境变量
+VITE_APP_DEBUG=true # 开启调试
+VITE_APP_URL="" # 接口地址
+
+# 2、编译项目
 ./cmd dev # 或 npm run start
 ```

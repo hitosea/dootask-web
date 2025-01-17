@@ -1,4 +1,5 @@
-const basePath = import.meta.env.VITE_APP_BASE_PATH;
+const debug = import.meta.env.VITE_APP_DEBUG === 'true';
+const basePath = debug ? '' : import.meta.env.VITE_APP_BASE_PATH;
 
 export default [
     {
